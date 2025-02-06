@@ -4,12 +4,12 @@ import { Button, PaperProvider, RadioButton } from "react-native-paper";
 
 export default function App() {
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
   const [checked, setChecked] = useState("like");
 
   const alert = () => {
-    if (name === null || age === 0) {
-      Alert.alert("Warning", "Please provide your name and age", [
+    if (name === "" || age === "") {
+      Alert.alert("Warning", "Please provide your name and age.", [
         { text: "OK" },
       ]);
     } else {
@@ -37,7 +37,7 @@ export default function App() {
       <View style={styles.views}>
         <Text style={styles.label}>Your age:</Text>
         <TextInput
-          placeholder="input your name"
+          placeholder="input your age"
           value={age}
           onChangeText={(age) => {
             if (isNaN(age)) {
