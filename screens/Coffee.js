@@ -1,0 +1,59 @@
+import { View } from "react-native";
+import { Button, RadioButton, Text } from "react-native-paper";
+import styles from "../styles/Styles";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+
+export default Coffee = ({ route }) => {
+  const [checked, setChecked] = useState("like");
+  const { name, email } = route.params || {
+    name: "John",
+    email: "abc@gmail.com",
+  };
+  const navigate = useNavigation();
+
+  const proceed = () => {
+    navigate.navigate("TabNavigator", {
+      screen: "Settings",
+      params: { name, email, checked },
+    });
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.detailView}>
+        <Text style={styles.detail}>Your Name: {name}</Text>
+        <Text style={styles.detail}>Your Email: {email}</Text>
+      </View>
+
+      <View style={styles.views}>
+        <Text style={styles.label}>Like Coffee?</Text>
+        <View style={styles.radios}>
+          <View style={styles.radio}>
+            <RadioButton
+              value="like"
+              status={checked === "like" ? "checked" : "unchecked"}
+              onPress={() => {
+                setChecked("like");
+              }}
+            />
+            <Text>Yes</Text>
+          </View>
+          <View style={styles.radio}>
+            <RadioButton
+              value="dislike"
+              status={checked === "dislike" ? "checked" : "unchecked"}
+              onPress={() => {
+                setChecked("dislike");
+              }}
+            />
+            <Text>No</Text>
+          </View>
+        </View>
+      </View>
+      <Button mode="contained" onPress={proceed}>
+        Proceed
+      </Button>
+    </View>
+  );
+};

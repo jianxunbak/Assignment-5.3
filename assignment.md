@@ -1,17 +1,17 @@
-## Assignment
+# Assignment
 
-### Brief
+## Brief
 
-In this assignment, you are to create a simple form as shown below.
+In this assignment, modify the two popular navigation components to use the `navigate` and `route` props to allow passing of data between screens:
 
-![Simple Form](/assets/images/outcome.png)
+1. [Tab Navigation](https://reactnavigation.org/docs/tab-based-navigation)
+1. [Drawer Navigation](https://reactnavigation.org/docs/drawer-based-navigation)
 
-Upon submit button pressed, it should show an alert.
+Pass information such as a login name and email between the screens.
 
-![Alert](/assets/images/alert.png)
+Recall the concept where each `Screen` lives within a `Stack`, and the `Stack` within a `Container`. In a Tab Navigation, each screen can function as a `Stack` that contains multiple `Screens` within it. In a Drawer Navigation, it is much straightforward.
 
-
-You may install external React libraries from depositories such as http://npmjs.com. 
+This assignment will expose you to the Tab and Drawer navigation, which will be helpful for the scoping of your project by giving you an idea how it works.
 ### Submission 
 
 - Submit the URL of the GitHub Repository that contains your work to NTU black board.

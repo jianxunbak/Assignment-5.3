@@ -1,127 +1,59 @@
-import { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
-import { Button, PaperProvider, RadioButton } from "react-native-paper";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "./screens/HomeScreen";
+import Coffee from "./screens/Coffee";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Settings from "./screens/Settings";
+import Feather from "@expo/vector-icons/Feather";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 export default function App() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [checked, setChecked] = useState("like");
-
-  const alert = () => {
-    if (name === "" || age === "") {
-      Alert.alert("Warning", "Please provide your name and age.", [
-        { text: "OK" },
-      ]);
-    } else {
-      Alert.alert(
-        "Summary",
-        `My name is ${name} and i am ${age} years old. I ${checked} coffee!`,
-        [{ text: "OK" }]
-      );
-    }
+  const Stack = createStackNavigator();
+  const Tab = createBottomTabNavigator();
+  const Drawer = createDrawerNavigator();
+  const TabNavigator = () => {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{
+            title: "Home Page",
+            tabBarIcon: ({ color, size }) => {
+              return <AntDesign name="home" size={size} color={color} />;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            title: "Settings",
+            tabBarIcon: ({ color, size }) => {
+              return <Feather name="settings" size={size} color={color} />;
+            },
+          }}
+        />
+      </Tab.Navigator>
+    );
   };
+
+  // const drawerNavigator = () => {
+  //   return (
+  //     <Drawer.Navigator>
+  //       <Drawer.Screen name="TabNavigator" component={TabNavigator} />
+  //       <Drawer.Screen name="Settings" component={Settings} />
+  //     </Drawer.Navigator>
+  //   );
+  // };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>COFFEE</Text>
-      <View style={styles.views}>
-        <Text style={styles.label}>Your name:</Text>
-        <TextInput
-          placeholder="input your name"
-          value={name}
-          onChangeText={(name) => {
-            setName(name);
-          }}
-          style={styles.input}
-        ></TextInput>
-      </View>
-      <View style={styles.views}>
-        <Text style={styles.label}>Your age:</Text>
-        <TextInput
-          placeholder="input your age"
-          value={age}
-          onChangeText={(age) => {
-            if (isNaN(age)) {
-              return;
-            } else {
-              setAge(age);
-            }
-          }}
-          style={styles.input}
-        ></TextInput>
-      </View>
-      <View style={styles.views}>
-        <Text style={styles.label}>Like Coffee?</Text>
-        <View style={styles.radios}>
-          <View style={styles.radio}>
-            <RadioButton
-              value="like"
-              status={checked === "like" ? "checked" : "unchecked"}
-              onPress={() => {
-                setChecked("like");
-              }}
-            />
-            <Text>Yes</Text>
-          </View>
-          <View style={styles.radio}>
-            <RadioButton
-              value="dislike"
-              status={checked === "dislike" ? "checked" : "unchecked"}
-              onPress={() => {
-                setChecked("dislike");
-              }}
-            />
-            <Text>No</Text>
-          </View>
-        </View>
-      </View>
-      <Button mode="contained" onPress={alert}>
-        Submit
-      </Button>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        {/* <Stack.Screen name="DrawerNavigator" component={drawerNavigator} /> */}
+        <Stack.Screen name="Coffee" component={Coffee} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  views: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  label: {
-    width: 100,
-  },
-  input: {
-    borderWidth: 0.5,
-    borderColor: "grey",
-    height: 50,
-    borderRadius: 5,
-    width: 250,
-    color: "black",
-    backgroundColor: "#d3d3d3",
-  },
-  radios: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    padding: 10,
-    width: 250,
-  },
-  radio: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-  title: {
-    fontSize: 50,
-    marginBottom: 50,
-    fontWeight: "bold",
-  },
-});
