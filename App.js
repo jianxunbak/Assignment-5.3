@@ -1,12 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./screens/HomeScreen";
 import Coffee from "./screens/Coffee";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import Settings from "./screens/Settings";
 import Feather from "@expo/vector-icons/Feather";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import Details from "./screens/Details";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -23,37 +23,59 @@ export default function App() {
             tabBarIcon: ({ color, size }) => {
               return <AntDesign name="home" size={size} color={color} />;
             },
+            headerShown: false,
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={Settings}
+          name="Details"
+          component={Details}
           options={{
-            title: "Settings",
+            title: "Details",
             tabBarIcon: ({ color, size }) => {
               return <Feather name="settings" size={size} color={color} />;
             },
+            // headerShown: false,
           }}
         />
       </Tab.Navigator>
     );
   };
 
-  // const drawerNavigator = () => {
-  //   return (
-  //     <Drawer.Navigator>
-  //       <Drawer.Screen name="TabNavigator" component={TabNavigator} />
-  //       <Drawer.Screen name="Settings" component={Settings} />
-  //     </Drawer.Navigator>
-  //   );
-  // };
+  const StackNavigator = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="TabNavigator"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Coffee"
+          component={Coffee}
+          // options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const DrawerNavigator = () => {
+    const navigation = useNavigation();
+
+    return (
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={StackNavigator} />
+        <Drawer.Screen
+          name="Details"
+          component={Details}
+          // options={{ headerShown: false }}
+        />
+      </Drawer.Navigator>
+    );
+  };
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
-        {/* <Stack.Screen name="DrawerNavigator" component={drawerNavigator} /> */}
-        <Stack.Screen name="Coffee" component={Coffee} />
-      </Stack.Navigator>
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }

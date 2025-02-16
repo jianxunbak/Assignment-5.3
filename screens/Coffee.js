@@ -14,7 +14,7 @@ export default Coffee = ({ route }) => {
 
   const proceed = () => {
     navigate.navigate("TabNavigator", {
-      screen: "Settings",
+      screen: "Details",
       params: { name, email, checked },
     });
   };
@@ -22,12 +22,7 @@ export default Coffee = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.detailView}>
-        <Text style={styles.detail}>Your Name: {name}</Text>
-        <Text style={styles.detail}>Your Email: {email}</Text>
-      </View>
-
-      <View style={styles.views}>
-        <Text style={styles.label}>Like Coffee?</Text>
+        <Text style={styles.question}>Do you like coffee?</Text>
         <View style={styles.radios}>
           <View style={styles.radio}>
             <RadioButton

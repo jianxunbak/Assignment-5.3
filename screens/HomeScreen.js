@@ -1,5 +1,5 @@
 import { Alert, Text, TextInput, View } from "react-native";
-import { Button, PaperProvider, RadioButton } from "react-native-paper";
+import { Button } from "react-native-paper";
 import styles from "../styles/Styles";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";

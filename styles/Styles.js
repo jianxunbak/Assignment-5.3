@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  question: {
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 20,
+  },
 });
 
 export default styles;
